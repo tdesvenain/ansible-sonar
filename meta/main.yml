@@ -9,5 +9,8 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - precise
+  - name: Debian
+    versions:
+    - jessie
   categories:
   - development

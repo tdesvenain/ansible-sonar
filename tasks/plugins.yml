@@ -5,7 +5,7 @@
     name="{{item}}"
   with_items: sonar_plugins_install
   notify: restart sonar
-  when: "sonar_plugins_install is defined and sonar_plugins_install | count > 0 and ansible_os_family == 'DEBIAN'"
+  when: "sonar_plugins_install is defined and sonar_plugins_install | count > 0 and ansible_os_family == 'Debian'"
 
 - name: plugins | Install pylint
   yum:

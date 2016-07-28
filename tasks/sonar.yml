@@ -7,8 +7,9 @@
 
 - name: Install unzip
   apt:
-    name="unzip-{{ sonar_unzip_version }}"
-  when: ansible_os_family == "DEBIAN"
+    name: "unzip={{ sonar_unzip_version }}"
+    update_cache: yes
+  when: ansible_os_family == "Debian"
   tags: sonar_setup
 
 - name: Install unzip

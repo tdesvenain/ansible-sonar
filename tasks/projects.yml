@@ -2,7 +2,7 @@
 - name: projects | Install git
   apt:
     name="git-{{ sonar_git_version }}"
-  when: ansible_os_family == "DEBIAN"
+  when: ansible_os_family == "Debian"
 
 - name: projects | Install git
   yum:

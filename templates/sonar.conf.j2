@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+
 #--------------------------------------------------------
 # This file must contain only ISO 8859-1 characters
 # see http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Properties.html#load(java.io.InputStream)
@@ -54,58 +54,11 @@ sonar.jdbc.url:                            jdbc:h2:tcp://{{sonar_jdbc_host}}:{{s
 # directory containing H2 database files. By default it's the /data directory in the SonarQube installation.
 #sonar.embeddedDatabase.dataDir:
 # H2 embedded database server listening port, defaults to 9092
-#sonar.embeddedDatabase.port:               9092
-
-
-#----- MySQL 5.x
-# Comment the embedded database and uncomment the following line to use MySQL
-
-{% if sonar_jdbc_driver == "mysql" %}  
-sonar.jdbc.url:                            jdbc:mysql://{{sonar_jdbc_host}}:{{sonar_jdbc_port}}/{{sonar_jdbc_db}}?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+{% if sonar_jdbc_driver == "h2" %}
+sonar.embeddedDatabase.port:               {{sonar_jdbc_port}}
 {% else %}
-#sonar.jdbc.url:                            jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+# sonar.embeddedDatabase.port:             9092
 {% endif %}
-
-
-
-
-#----- Oracle 10g/11g
-# To connect to Oracle database :
-#
-# - It's recommended to use the latest version of the JDBC driver (ojdbc6.jar).
-#   Download it in http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html
-# - Copy the driver to the directory extensions/jdbc-driver/oracle/
-# - Comment the embedded database and uncomment the following line :
-#sonar.jdbc.url:                            jdbc:oracle:thin:@localhost/XE
-
-
-# Uncomment the following property if the Oracle account has permissions to access multiple schemas,
-# for example sonar schemas with different versions. In that case, use the same property during project analysis
-# (-Dsonar.jdbc.schema=<schema>)
-# The schema is case-sensitive.
-#sonar.jdbc.schema:                         sonar
-
-
-#----- PostgreSQL 8.x/9.x
-# Comment the embedded database and uncomment the following property to use PostgreSQL
-{% if sonar_jdbc_driver == "postgresql" %}  
-sonar.jdbc.url:                            jdbc:postgresql://{{sonar_jdbc_host}}:{{sonar_jdbc_port}}/{{sonar_jdbc_db}}
-{% else %}
-#sonar.jdbc.url:                            jdbc:postgresql://localhost/sonar
-{% endif %}
-
-# Uncomment the following property if the PostgreSQL account has permissions to access multiple schemas,
-# for example sonar schemas with different versions. In that case, use the same property during project analysis
-# (-Dsonar.jdbc.schema=<schema>)
-{% if sonar_jdbc_driver == "postgresql" and sonar_psql_schema is defined %}  
-sonar.jdbc.schema:                        {{sonar_psql_schema}}
-{% else %}
-#sonar.jdbc.schema:                         public
-{% endif %}
-
-#----- Microsoft SQLServer
-# The Jtds open source driver is available in extensions/jdbc-driver/mssql. More details on http://jtds.sourceforge.net
-#sonar.jdbc.url:                            jdbc:jtds:sqlserver://localhost/sonar;SelectMethod=Cursor
 
 
 #----- Connection pool settings
